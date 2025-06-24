@@ -28,6 +28,14 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
+    
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'preco' => 'required|numeric|min:0',
+            'descricao' => 'nullable|string',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         Produto::create($request->all());
         return redirect()->route('produtos.index');
     }
